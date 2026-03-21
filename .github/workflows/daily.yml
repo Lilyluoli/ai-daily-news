@@ -1,0 +1,42 @@
+name: AI Daily
+on:
+  schedule:
+    - cron: '0 22 * * *' # 北京时间 06:00 运行
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Manual run reason'
+        required: false
+        default: 'Manual trigger'
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: '3.11'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Fetch news
+        run: python fetch_news.py
+        continue-on-error: false
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "AI Daily Bot"
+          git add -A
+          git diff --staged --quiet || git commit -m "Auto-update news at $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:master
