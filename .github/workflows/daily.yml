@@ -1,0 +1,44 @@
+name: AI Daily
+
+on:
+  schedule:
+    # 每天 6:00 UTC 抓取 (= 14:00 北京时间)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Fetch news
+        run: python fetch_news.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Commit and push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "AI Daily Bot"
+          git add -A
+          git diff --staged --quiet || git commit -m "Update: $(date +'%Y-%m-%d')"
+          git push
+
+      - name: Send Feishu Notification
+        if: success()
+        run: |
+          python send_feishu.py
+        env:
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+          HTML_URL: "https://${{ github.repository_owner }}.github.io/ai-daily/"
