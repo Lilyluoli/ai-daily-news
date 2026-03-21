@@ -1,6 +1,9 @@
 """
 AI Daily - 每日AI与艺术资讯抓取
 """
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 import requests
 from bs4 import BeautifulSoup
 import json
@@ -9,9 +12,10 @@ import os
 import re
 
 # 配置
-OUTPUT_DIR = "output"
-DATA_FILE = f"{OUTPUT_DIR}/data.json"
-HTML_FILE = "index.html"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(SCRIPT_DIR, "output")
+DATA_FILE = os.path.join(OUTPUT_DIR, "data.json")
+HTML_FILE = os.path.join(SCRIPT_DIR, "index.html")
 
 # 数据源
 RSS_SOURCES = {
