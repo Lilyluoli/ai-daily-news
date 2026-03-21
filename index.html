@@ -4,112 +4,215 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Daily - 2026-03-21</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
-            background: #0f172a; 
-            min-height: 100vh; 
-            padding: 40px 20px;
-            color: #e2e8f0;
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --text-primary: #ffffff;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-amber: #f59e0b;
+            --accent-pink: #ec4899;
+            --border-color: #2a2a3a;
         }
-        .container { max-width: 800px; margin: 0 auto; }
         
-        /* Header */
-        header { text-align: center; margin-bottom: 50px; }
-        .logo { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 12px; 
-            margin-bottom: 8px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, sans-serif; 
+            background: var(--bg-primary);
+            min-height: 100vh; 
+            color: var(--text-primary);
+            line-height: 1.6;
         }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0 50px;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
         .logo-icon {
-            width: 48px; 
-            height: 48px; 
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+        }
+        
+        .logo-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .date {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-top: 12px;
+        }
+        
+        .ai-tip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 24px;
+            padding: 12px 20px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 50px;
+            color: #a5b4fc;
+            font-size: 0.9rem;
+        }
+        
+        .ai-tip::before {
+            content: '💡';
+        }
+        
+        /* Categories Grid */
+        .categories {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .section-header {
+            padding: 24px 28px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-icon {
+            width: 44px;
+            height: 44px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-        }
-        h1 { 
-            color: #fff; 
-            font-size: 2rem; 
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        .date { 
-            color: #94a3b8; 
-            font-size: 0.95rem;
-            margin-top: 8px;
+            font-size: 22px;
         }
         
-        /* Categories */
-        .categories { display: flex; flex-direction: column; gap: 20px; }
+        .section-title-group {
+            flex: 1;
+        }
         
-        .section { 
-            background: #1e293b; 
-            border-radius: 16px; 
-            overflow: hidden;
-            border: 1px solid #334155;
-        }
-        .section-header {
-            padding: 16px 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .section-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-        }
-        .section h2 { 
-            color: #fff; 
-            font-size: 1.1rem; 
+        .section h2 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
             font-weight: 600;
         }
+        
+        .section .subtitle {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+        
         .news-count {
-            margin-left: auto;
-            background: #334155;
-            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 14px;
             border-radius: 20px;
-            font-size: 0.75rem;
-            color: #94a3b8;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
         
         /* News Items */
-        .news-list { padding: 8px 24px 20px; }
+        .news-list { padding: 16px 28px 24px; }
+        
         .news-item { 
-            padding: 14px 0; 
-            border-bottom: 1px solid #334155;
+            padding: 16px 0; 
+            border-bottom: 1px solid var(--border-color);
         }
+        
         .news-item:last-child { border-bottom: none; }
+        
         .news-item a { 
-            color: #e2e8f0; 
+            color: var(--text-primary); 
             text-decoration: none; 
             font-size: 0.95rem;
-            line-height: 1.5;
             display: block;
+            transition: color 0.2s;
         }
+        
         .news-item a:hover { color: #818cf8; }
+        
         .news-meta { 
             display: flex; 
             align-items: center; 
-            gap: 12px;
-            margin-top: 6px;
+            gap: 16px;
+            margin-top: 8px;
         }
+        
         .source { 
-            color: #64748b; 
+            color: var(--text-muted); 
             font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
+        
+        .source::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-purple);
+        }
+        
         .score { 
-            color: #fbbf24; 
+            color: var(--accent-amber); 
             font-size: 0.8rem;
             font-weight: 500;
         }
@@ -117,38 +220,65 @@
         /* Footer */
         footer { 
             text-align: center; 
-            color: #475569; 
-            margin-top: 50px; 
-            padding: 20px;
+            margin-top: 60px; 
+            padding: 30px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        footer p { 
+            color: var(--text-muted); 
             font-size: 0.85rem;
         }
-        footer a { color: #6366f1; text-decoration: none; }
         
-        /* Empty state */
-        .empty { 
-            text-align: center; 
-            padding: 40px; 
-            color: #64748b; 
+        footer a { 
+            color: var(--accent-purple); 
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        footer a:hover { color: #a78bfa; }
+        
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container { padding: 24px 16px; }
+            .hero { padding: 40px 0 30px; }
+            .logo-text { font-size: 1.8rem; }
+            .section-header { padding: 20px; }
+            .news-list { padding: 12px 20px 16px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="hero">
             <div class="logo">
                 <div class="logo-icon">🌊</div>
-                <h1>AI Daily</h1>
+                <span class="logo-text">AI Daily</span>
             </div>
-            <p class="date">2026年03月21日 · 精选AI与艺术资讯</p>
+            <p class="date">2026.03.21 · Daily AI & Art Digest</p>
+            <div class="ai-tip">Prompt正在成为新时代的编程语言</div>
         </header>
 
         <div class="categories">
 
             <div class="section">
-                <div class="section-header" style="background: #4f46e520;">
-                    <span class="section-icon" style="background: #4f46e5;">🤖</span>
-                    <h2>🤖 AI技术热点</h2>
-                    <span class="news-count">8 条</span>
+                <div class="section-header" style="background: linear-gradient(90deg, #6366f115, transparent);">
+                    <span class="section-icon" style="background: linear-gradient(135deg, #6366f1, #6366f1cc);">⚡</span>
+                    <div class="section-title-group">
+                        <h2>AI Insights</h2>
+                        <p class="subtitle">AI技术热点</p>
+                    </div>
+                    <span class="news-count">6 items</span>
                 </div>
                 <div class="news-list">
 
@@ -156,7 +286,7 @@
                         <a href="https://opencode.ai/" target="_blank">OpenCode – Open source AI coding agent</a>
                         <div class="news-meta">
                             <span class="source">Hacker News</span>
-                            <span class="score">⭐ 6</span>
+                            <span class="score">★ 6</span>
                         </div>
                     </div>
 
@@ -164,7 +294,7 @@
                         <a href="https://blog.atuin.sh/atuin-v18-13/" target="_blank">Atuin v18.13 – better search, a PTY proxy, and AI for your shell</a>
                         <div class="news-meta">
                             <span class="source">Hacker News</span>
-                            <span class="score">⭐ 6</span>
+                            <span class="score">★ 6</span>
                         </div>
                     </div>
 
@@ -172,7 +302,7 @@
                         <a href="https://www.together.ai/blog/mamba-3" target="_blank">Mamba-3</a>
                         <div class="news-meta">
                             <span class="source">Hacker News</span>
-                            <span class="score">⭐ 5</span>
+                            <span class="score">★ 5</span>
                         </div>
                     </div>
 
@@ -180,7 +310,7 @@
                         <a href="https://blogs.igalia.com/llepage/ffmpeg-101/" target="_blank">FFmpeg 101 (2024)</a>
                         <div class="news-meta">
                             <span class="source">Hacker News</span>
-                            <span class="score">⭐ 5</span>
+                            <span class="score">★ 5</span>
                         </div>
                     </div>
 
@@ -188,7 +318,7 @@
                         <a href="https://www.nippon.com/en/japan-data/h01362/" target="_blank">A Japanese glossary of chopsticks faux pas (2022)</a>
                         <div class="news-meta">
                             <span class="source">Hacker News</span>
-                            <span class="score">⭐ 5</span>
+                            <span class="score">★ 5</span>
                         </div>
                     </div>
 
@@ -196,23 +326,7 @@
                         <a href="https://bookofjoe2.blogspot.com/2026/02/molly-guard.html" target="_blank">Molly Guard</a>
                         <div class="news-meta">
                             <span class="source">Hacker News</span>
-                            <span class="score">⭐ 5</span>
-                        </div>
-                    </div>
-
-                    <div class="news-item">
-                        <a href="https://github.com/eggricesoy/filmkit" target="_blank">Fujifilm X RAW STUDIO webapp clone</a>
-                        <div class="news-meta">
-                            <span class="source">Hacker News</span>
-                            <span class="score">⭐ 5</span>
-                        </div>
-                    </div>
-
-                    <div class="news-item">
-                        <a href="https://github.com/ghostty-org/ghostling" target="_blank">Ghostling</a>
-                        <div class="news-meta">
-                            <span class="source">Hacker News</span>
-                            <span class="score">⭐ 5</span>
+                            <span class="score">★ 5</span>
                         </div>
                     </div>
 
@@ -220,10 +334,13 @@
             </div>
 
             <div class="section">
-                <div class="section-header" style="background: #0891b220;">
-                    <span class="section-icon" style="background: #0891b2;">💡</span>
-                    <h2>💡 艺术灵感</h2>
-                    <span class="news-count">2 条</span>
+                <div class="section-header" style="background: linear-gradient(90deg, #f59e0b15, transparent);">
+                    <span class="section-icon" style="background: linear-gradient(135deg, #f59e0b, #f59e0bcc);">✨</span>
+                    <div class="section-title-group">
+                        <h2>Art Inspiration</h2>
+                        <p class="subtitle">艺术灵感</p>
+                    </div>
+                    <span class="news-count">2 items</span>
                 </div>
                 <div class="news-list">
 
@@ -231,7 +348,7 @@
                         <a href="https://www.artstation.com" target="_blank">3D Character Design Showcase</a>
                         <div class="news-meta">
                             <span class="source">ArtStation</span>
-                            <span class="score">⭐ 8</span>
+                            <span class="score">★ 8</span>
                         </div>
                     </div>
 
@@ -239,7 +356,7 @@
                         <a href="https://www.behance.net" target="_blank">Digital Art Trends 2026</a>
                         <div class="news-meta">
                             <span class="source">Behance</span>
-                            <span class="score">⭐ 7</span>
+                            <span class="score">★ 7</span>
                         </div>
                     </div>
 
@@ -247,10 +364,13 @@
             </div>
 
             <div class="section">
-                <div class="section-header" style="background: #7c3aed20;">
-                    <span class="section-icon" style="background: #7c3aed;">🎨</span>
-                    <h2>🎨 艺术风格</h2>
-                    <span class="news-count">1 条</span>
+                <div class="section-header" style="background: linear-gradient(90deg, #ec489915, transparent);">
+                    <span class="section-icon" style="background: linear-gradient(135deg, #ec4899, #ec4899cc);">🎯</span>
+                    <div class="section-title-group">
+                        <h2>Design Trends</h2>
+                        <p class="subtitle">设计趋势</p>
+                    </div>
+                    <span class="news-count">1 items</span>
                 </div>
                 <div class="news-list">
 
@@ -258,7 +378,7 @@
                         <a href="https://dribbble.com" target="_blank">Minimalist Design Principles</a>
                         <div class="news-meta">
                             <span class="source">Dribbble</span>
-                            <span class="score">⭐ 6</span>
+                            <span class="score">★ 6</span>
                         </div>
                     </div>
 
@@ -268,7 +388,11 @@
         </div>
 
         <footer>
-            <p>🤖 由 AI Daily 自动生成 · <a href="https://github.com/Lilyluoli/ai-daily-news" target="_blank">GitHub</a></p>
+            <div class="footer-brand">
+                <span>🤖</span>
+                <span>AI Daily</span>
+            </div>
+            <p>Automated with ❤️ · <a href="https://github.com/Lilyluoli/ai-daily-news" target="_blank">GitHub</a></p>
         </footer>
     </div>
 </body>
