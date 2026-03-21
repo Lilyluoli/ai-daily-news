@@ -6,115 +6,269 @@
     <title>AI Daily - 2026-03-21</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
-               background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); 
-               min-height: 100vh; padding: 20px; }
-        .container { max-width: 900px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 40px; }
-        h1 { color: #fff; font-size: 2.5em; margin-bottom: 10px; }
-        .date { color: #888; font-size: 1.1em; }
-        .section { background: rgba(255,255,255,0.05); border-radius: 16px; 
-                   padding: 24px; margin-bottom: 24px; }
-        .section h2 { color: #fff; font-size: 1.4em; margin-bottom: 16px; 
-                      padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .news-item { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            background: #0f172a; 
+            min-height: 100vh; 
+            padding: 40px 20px;
+            color: #e2e8f0;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        /* Header */
+        header { text-align: center; margin-bottom: 50px; }
+        .logo { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 12px; 
+            margin-bottom: 8px;
+        }
+        .logo-icon {
+            width: 48px; 
+            height: 48px; 
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        h1 { 
+            color: #fff; 
+            font-size: 2rem; 
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .date { 
+            color: #94a3b8; 
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+        
+        /* Categories */
+        .categories { display: flex; flex-direction: column; gap: 20px; }
+        
+        .section { 
+            background: #1e293b; 
+            border-radius: 16px; 
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+        .section-header {
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        .section h2 { 
+            color: #fff; 
+            font-size: 1.1rem; 
+            font-weight: 600;
+        }
+        .news-count {
+            margin-left: auto;
+            background: #334155;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+        
+        /* News Items */
+        .news-list { padding: 8px 24px 20px; }
+        .news-item { 
+            padding: 14px 0; 
+            border-bottom: 1px solid #334155;
+        }
         .news-item:last-child { border-bottom: none; }
-        .news-item a { color: #64b5f6; text-decoration: none; font-size: 1.1em; }
-        .news-item a:hover { color: #90caf9; text-decoration: underline; }
-        .source { color: #666; font-size: 0.85em; margin-top: 4px; }
-        .score { color: #ff9800; font-size: 0.9em; margin-left: 10px; }
-        footer { text-align: center; color: #666; margin-top: 40px; padding: 20px; }
+        .news-item a { 
+            color: #e2e8f0; 
+            text-decoration: none; 
+            font-size: 0.95rem;
+            line-height: 1.5;
+            display: block;
+        }
+        .news-item a:hover { color: #818cf8; }
+        .news-meta { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+            margin-top: 6px;
+        }
+        .source { 
+            color: #64748b; 
+            font-size: 0.8rem;
+        }
+        .score { 
+            color: #fbbf24; 
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        footer { 
+            text-align: center; 
+            color: #475569; 
+            margin-top: 50px; 
+            padding: 20px;
+            font-size: 0.85rem;
+        }
+        footer a { color: #6366f1; text-decoration: none; }
+        
+        /* Empty state */
+        .empty { 
+            text-align: center; 
+            padding: 40px; 
+            color: #64748b; 
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🌊 AI Daily</h1>
-            <p class="date">2026年03月21日</p>
+            <div class="logo">
+                <div class="logo-icon">🌊</div>
+                <h1>AI Daily</h1>
+            </div>
+            <p class="date">2026年03月21日 · 精选AI与艺术资讯</p>
         </header>
 
-        <div class="section">
-            <h2>🤖 AI技术热点</h2>
+        <div class="categories">
 
-            <div class="news-item">
-                <a href="https://opencode.ai/" target="_blank">OpenCode – Open source AI coding agent</a>
-                <div class="source">Hacker News<span class="score">⭐6</span></div>
+            <div class="section">
+                <div class="section-header" style="background: #4f46e520;">
+                    <span class="section-icon" style="background: #4f46e5;">🤖</span>
+                    <h2>🤖 AI技术热点</h2>
+                    <span class="news-count">8 条</span>
+                </div>
+                <div class="news-list">
+
+                    <div class="news-item">
+                        <a href="https://opencode.ai/" target="_blank">OpenCode – Open source AI coding agent</a>
+                        <div class="news-meta">
+                            <span class="source">Hacker News</span>
+                            <span class="score">⭐ 6</span>
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <a href="https://blog.atuin.sh/atuin-v18-13/" target="_blank">Atuin v18.13 – better search, a PTY proxy, and AI for your shell</a>
+                        <div class="news-meta">
+                            <span class="source">Hacker News</span>
+                            <span class="score">⭐ 6</span>
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <a href="https://www.together.ai/blog/mamba-3" target="_blank">Mamba-3</a>
+                        <div class="news-meta">
+                            <span class="source">Hacker News</span>
+                            <span class="score">⭐ 5</span>
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <a href="https://blogs.igalia.com/llepage/ffmpeg-101/" target="_blank">FFmpeg 101 (2024)</a>
+                        <div class="news-meta">
+                            <span class="source">Hacker News</span>
+                            <span class="score">⭐ 5</span>
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <a href="https://www.nippon.com/en/japan-data/h01362/" target="_blank">A Japanese glossary of chopsticks faux pas (2022)</a>
+                        <div class="news-meta">
+                            <span class="source">Hacker News</span>
+                            <span class="score">⭐ 5</span>
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <a href="https://bookofjoe2.blogspot.com/2026/02/molly-guard.html" target="_blank">Molly Guard</a>
+                        <div class="news-meta">
+                            <span class="source">Hacker News</span>
+                            <span class="score">⭐ 5</span>
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <a href="https://github.com/eggricesoy/filmkit" target="_blank">Fujifilm X RAW STUDIO webapp clone</a>
+                        <div class="news-meta">
+                            <span class="source">Hacker News</span>
+                            <span class="score">⭐ 5</span>
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <a href="https://github.com/ghostty-org/ghostling" target="_blank">Ghostling</a>
+                        <div class="news-meta">
+                            <span class="source">Hacker News</span>
+                            <span class="score">⭐ 5</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="news-item">
-                <a href="https://blog.atuin.sh/atuin-v18-13/" target="_blank">Atuin v18.13 – better search, a PTY proxy, and AI for your shell</a>
-                <div class="source">Hacker News<span class="score">⭐6</span></div>
+            <div class="section">
+                <div class="section-header" style="background: #0891b220;">
+                    <span class="section-icon" style="background: #0891b2;">💡</span>
+                    <h2>💡 艺术灵感</h2>
+                    <span class="news-count">2 条</span>
+                </div>
+                <div class="news-list">
+
+                    <div class="news-item">
+                        <a href="https://www.artstation.com" target="_blank">3D Character Design Showcase</a>
+                        <div class="news-meta">
+                            <span class="source">ArtStation</span>
+                            <span class="score">⭐ 8</span>
+                        </div>
+                    </div>
+
+                    <div class="news-item">
+                        <a href="https://www.behance.net" target="_blank">Digital Art Trends 2026</a>
+                        <div class="news-meta">
+                            <span class="source">Behance</span>
+                            <span class="score">⭐ 7</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="news-item">
-                <a href="https://www.together.ai/blog/mamba-3" target="_blank">Mamba-3</a>
-                <div class="source">Hacker News<span class="score">⭐5</span></div>
-            </div>
+            <div class="section">
+                <div class="section-header" style="background: #7c3aed20;">
+                    <span class="section-icon" style="background: #7c3aed;">🎨</span>
+                    <h2>🎨 艺术风格</h2>
+                    <span class="news-count">1 条</span>
+                </div>
+                <div class="news-list">
 
-            <div class="news-item">
-                <a href="https://blogs.igalia.com/llepage/ffmpeg-101/" target="_blank">FFmpeg 101 (2024)</a>
-                <div class="source">Hacker News<span class="score">⭐5</span></div>
-            </div>
+                    <div class="news-item">
+                        <a href="https://dribbble.com" target="_blank">Minimalist Design Principles</a>
+                        <div class="news-meta">
+                            <span class="source">Dribbble</span>
+                            <span class="score">⭐ 6</span>
+                        </div>
+                    </div>
 
-            <div class="news-item">
-                <a href="https://www.nippon.com/en/japan-data/h01362/" target="_blank">A Japanese glossary of chopsticks faux pas (2022)</a>
-                <div class="source">Hacker News<span class="score">⭐5</span></div>
-            </div>
-
-            <div class="news-item">
-                <a href="https://bookofjoe2.blogspot.com/2026/02/molly-guard.html" target="_blank">Molly Guard</a>
-                <div class="source">Hacker News<span class="score">⭐5</span></div>
-            </div>
-
-            <div class="news-item">
-                <a href="https://github.com/eggricesoy/filmkit" target="_blank">Fujifilm X RAW STUDIO webapp clone</a>
-                <div class="source">Hacker News<span class="score">⭐5</span></div>
-            </div>
-
-            <div class="news-item">
-                <a href="https://trigger.dev/blog/how-trql-works" target="_blank">We give every user SQL access to a shared ClickHouse cluster</a>
-                <div class="source">Hacker News<span class="score">⭐5</span></div>
-            </div>
-
-            <div class="news-item">
-                <a href="https://github.com/ghostty-org/ghostling" target="_blank">Ghostling</a>
-                <div class="source">Hacker News<span class="score">⭐5</span></div>
-            </div>
-
-            <div class="news-item">
-                <a href="https://www.openui.com/blog/rust-wasm-parser" target="_blank">We rewrote our Rust WASM parser in TypeScript and it got faster</a>
-                <div class="source">Hacker News<span class="score">⭐5</span></div>
-            </div>
-
-        </div>
-
-        <div class="section">
-            <h2>💡 艺术灵感</h2>
-
-            <div class="news-item">
-                <a href="https://www.artstation.com" target="_blank">3D Character Design Showcase</a>
-                <div class="source">ArtStation<span class="score">⭐8</span></div>
-            </div>
-
-            <div class="news-item">
-                <a href="https://www.behance.net" target="_blank">Digital Art Trends 2026</a>
-                <div class="source">Behance<span class="score">⭐7</span></div>
-            </div>
-
-        </div>
-
-        <div class="section">
-            <h2>🎨 艺术风格</h2>
-
-            <div class="news-item">
-                <a href="https://dribbble.com" target="_blank">Minimalist Design Principles</a>
-                <div class="source">Dribbble<span class="score">⭐6</span></div>
+                </div>
             </div>
 
         </div>
 
         <footer>
-            <p>🤖 自动生成 by AI Daily</p>
+            <p>🤖 由 AI Daily 自动生成 · <a href="https://github.com/Lilyluoli/ai-daily-news" target="_blank">GitHub</a></p>
         </footer>
     </div>
 </body>
