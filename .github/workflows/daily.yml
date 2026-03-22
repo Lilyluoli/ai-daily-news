@@ -36,3 +36,80 @@ jobs:
           git add -A
           git diff --staged --quiet || git commit -m "Auto-update"
           git push          
+        continue-on-error: true
+      
+      - name: Send to Feishu
+        run: |
+          python -c "          
+import requests
+import json
+from datetime import datetime
+
+with open('output/data.json', 'r', encoding='utf-8') as f:
+    data = json.load(f)
+
+news_list = data.get('news', [])
+ai_news = [n for n in news_list if n.get('category') == 'ai_hotspot'][:5]
+art_news = [n for n in news_list if n.get('category') in ['art_inspiration', 'art_style']][:3]
+
+card = {
+    'msg_type': 'interactive',
+    'card': {
+        'config': {'wide_screen_mode': True},
+        'header': {
+            'title': {'tag': 'plain_text', 'content': f'AI Daily - {datetime.now().strftime(\"%m月%d日\")}资讯'},
+            'template': 'blue'
+        },
+        'elements': [
+            {'tag': 'div', 'text': {'tag': 'lark_md', 'content': '**今日AI热点**'}}
+        ]
+    }
+}
+
+for n in ai_news:
+    title = n.get('title', '')[:50]
+    url = n.get('url', '')
+    card['card']['elements'].append({
+        'tag': 'div',
+        'text': {'tag': 'lark_md', 'content': f'• [{title}]({url})'}
+    })
+
+if art_news:
+    card['card']['elements'].append({
+        'tag': 'div',
+        'text': {'tag': 'lark_md', 'content': '\\n**艺术灵感**'}
+    })
+    for n in art_news:
+        title = n.get('title', '')[:50]
+        url = n.get('url', '')
+        card['card']['elements'].append({
+            'tag': 'div',
+            'text': {'tag': 'lark_md', 'content': f'• [{title}]({url})'}
+        })
+
+card['card']['elements'].append({
+    'tag': 'action',
+    'actions': [
+        {
+            'tag': 'button',
+            'text': {'tag': 'plain_text', 'content': '查看完整资讯'},
+            'type': 'primary',
+            'url': 'https://lilyluoli.github.io/ai-daily-news/'
+        },
+        {
+            'tag': 'button',
+            'text': {'tag': 'plain_text', 'content': '调整内容'},
+            'url': 'https://github.com/Lilyluoli/ai-daily-news/edit/master/output/data.json'
+        }
+    ]
+})
+
+webhook = '${{ secrets.FEISHU_WEBHOOK }}'
+if webhook:
+    resp = requests.post(webhook, json=card)
+    print(f'Feishu: {resp.status_code}')
+else:
+    print('No webhook configured')
+"
+        env:
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
