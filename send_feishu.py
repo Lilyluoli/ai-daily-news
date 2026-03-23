@@ -88,9 +88,16 @@ def send_feishu_card(news_list, html_url):
         return False
 
 if __name__ == "__main__":
-    # 测试
-    test_news = [
-        {"title": "GPT-5 发布", "url": "https://openai.com", "category": "ai_hotspot"},
-        {"title": "AI Art 趋势", "url": "https://behance.net", "category": "art_inspiration"}
-    ]
-    send_feishu_card(test_news, "https://example.com")
+    import sys
+    
+    # 读取 data.json
+    try:
+        with open('output/data.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        news_list = data.get('news', [])
+        html_url = 'https://lilyluoli.github.io/ai-daily-news/'
+        send_feishu_card(news_list, html_url)
+    except FileNotFoundError:
+        print("⚠️ output/data.json 不存在")
+    except Exception as e:
+        print(f"⚠️ 错误: {e}")
